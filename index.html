@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,26 +11,39 @@
         .form-section {
             transition: all 0.3s ease;
         }
+
         .form-section.collapsed {
             opacity: 0.7;
         }
+
         .form-section.collapsed .section-content {
             display: none;
         }
+
         .required-field::after {
             content: "*";
             color: #ef4444;
             margin-left: 2px;
         }
+
         .success-message {
             animation: fadeIn 0.5s ease;
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
+
 <body class="bg-gray-50 font-sans">
     <div class="container mx-auto px-4 py-8 max-w-4xl">
         <!-- Header -->
@@ -43,7 +57,7 @@
                     <p class="text-blue-200 mt-2">Współpraca z Ogólnopolskim Związkiem Zawodowym Fizyków Medycznych</p>
                 </div>
                 <div class="mb-4 sm:mb-0 sm:mr-6">
-                    <img src="logo.png" alt="Company Logo" class="h-24"> 
+                    <img src="logo.png" alt="Company Logo" class="h-24">
                 </div>
             </div>
         </header>
@@ -56,9 +70,12 @@
             </div>
 
             <!-- Form Sections -->
-            <form id="insurance-form" class="p-6">
+            <form id="insurance-form"
+                action="https://script.google.com/macros/s/AKfycbwwud03QWMTmPBNciJXFypigeJ7VYeIZoMFNK1CM1NJBxbR2Bgos0Qr8MuDfcLCU2Vb/exec"
+                method="POST" class="p-6">
                 <!-- Success Message (hidden by default) -->
-                <div id="success-message" class="success-message hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+                <div id="success-message"
+                    class="success-message hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
                     <div class="flex items-center">
                         <i class="fas fa-check-circle text-green-500 mr-2"></i>
                         <span class="font-bold">Sukces!</span>
@@ -67,12 +84,14 @@
                 </div>
 
                 <!-- Error Message (hidden by default) -->
-                <div id="error-message" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+                <div id="error-message"
+                    class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
                     <div class="flex items-center">
                         <i class="fas fa-exclamation-circle text-red-500 mr-2"></i>
                         <span class="font-bold">Błąd!</span>
                     </div>
-                    <p class="mt-2">Wystąpił problem podczas przesyłania formularza. Proszę sprawdzić wszystkie wymagane pola i spróbować ponownie.</p>
+                    <p class="mt-2">Wystąpił problem podczas przesyłania formularza. Proszę sprawdzić wszystkie wymagane
+                        pola i spróbować ponownie.</p>
                 </div>
 
                 <!-- Section I: General Information -->
@@ -87,36 +106,51 @@
                     <div class="section-content mt-4">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label for="full-name" class="block text-sm font-medium text-gray-700 required-field">Imię i nazwisko</label>
-                                <input type="text" id="full-name" name="full-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                                <label for="full-name"
+                                    class="block text-sm font-medium text-gray-700 required-field">Imię i
+                                    nazwisko</label>
+                                <input type="text" id="full-name" name="full-name"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
                             </div>
                             <div>
-                                <label for="address" class="block text-sm font-medium text-gray-700 required-field">Adres</label>
-                                <input type="text" id="address" name="address" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                                <label for="address"
+                                    class="block text-sm font-medium text-gray-700 required-field">Adres</label>
+                                <input type="text" id="address" name="address"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
                             </div>
                             <div>
-                                <label for="phone" class="block text-sm font-medium text-gray-700 required-field">Telefon</label>
-                                <input type="tel" id="phone" name="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                                <label for="phone"
+                                    class="block text-sm font-medium text-gray-700 required-field">Telefon</label>
+                                <input type="tel" id="phone" name="phone"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
                             </div>
                             <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700 required-field">E-mail</label>
-                                <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                                <label for="email"
+                                    class="block text-sm font-medium text-gray-700 required-field">E-mail</label>
+                                <input type="email" id="email" name="email"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
                             </div>
                             <div>
-                                <label for="fax" class="block text-sm font-medium text-gray-700">Faks (opcjonalnie)</label>
-                                <input type="text" id="fax" name="fax" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                                <label for="fax" class="block text-sm font-medium text-gray-700">Faks
+                                    (opcjonalnie)</label>
+                                <input type="text" id="fax" name="fax"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
                             </div>
                             <div>
                                 <label for="regon" class="block text-sm font-medium text-gray-700">REGON</label>
-                                <input type="text" id="regon" name="regon" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                                <input type="text" id="regon" name="regon"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
                             </div>
                             <div>
                                 <label for="nip" class="block text-sm font-medium text-gray-700">NIP</label>
-                                <input type="text" id="nip" name="nip" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                                <input type="text" id="nip" name="nip"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
                             </div>
                             <div>
-                                <label for="pesel" class="block text-sm font-medium text-gray-700 required-field">PESEL</label>
-                                <input type="text" id="pesel" name="pesel" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                                <label for="pesel"
+                                    class="block text-sm font-medium text-gray-700 required-field">PESEL</label>
+                                <input type="text" id="pesel" name="pesel"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
                             </div>
                         </div>
                     </div>
@@ -134,12 +168,18 @@
                     <div class="section-content mt-4">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label for="start-date" class="block text-sm font-medium text-gray-700 required-field">Data rozpoczęcia</label>
-                                <input type="date" id="start-date" name="start-date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                                <label for="start-date"
+                                    class="block text-sm font-medium text-gray-700 required-field">Data
+                                    rozpoczęcia</label>
+                                <input type="date" id="start-date" name="start-date"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
                             </div>
                             <div>
-                                <label for="end-date" class="block text-sm font-medium text-gray-700 required-field">Data zakończenia</label>
-                                <input type="date" id="end-date" name="end-date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                                <label for="end-date"
+                                    class="block text-sm font-medium text-gray-700 required-field">Data
+                                    zakończenia</label>
+                                <input type="date" id="end-date" name="end-date"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
                             </div>
                         </div>
                     </div>
@@ -160,21 +200,30 @@
                                 <h3 class="font-medium text-blue-800 mb-3">Ubezpieczenie OC zawodowego</h3>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 required-field">Członek Związku Fizyków Medycznych</label>
+                                        <label class="block text-sm font-medium text-gray-700 required-field">Członek
+                                            Związku Fizyków Medycznych</label>
                                         <div class="mt-2 flex space-x-4">
                                             <div class="flex items-center">
-                                                <input id="member-yes" name="association-member" type="radio" value="yes" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
-                                                <label for="member-yes" class="ml-2 block text-sm text-gray-700">TAK</label>
+                                                <input id="member-yes" name="association-member" type="radio"
+                                                    value="yes"
+                                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                                <label for="member-yes"
+                                                    class="ml-2 block text-sm text-gray-700">TAK</label>
                                             </div>
                                             <div class="flex items-center">
-                                                <input id="member-no" name="association-member" type="radio" value="no" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
-                                                <label for="member-no" class="ml-2 block text-sm text-gray-700">NIE</label>
+                                                <input id="member-no" name="association-member" type="radio" value="no"
+                                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                                <label for="member-no"
+                                                    class="ml-2 block text-sm text-gray-700">NIE</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div>
-                                        <label for="sum-guaranteed" class="block text-sm font-medium text-gray-700 required-field">Suma gwarancyjna</label>
-                                        <select id="sum-guaranteed" name="sum-guaranteed" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                                        <label for="sum-guaranteed"
+                                            class="block text-sm font-medium text-gray-700 required-field">Suma
+                                            gwarancyjna</label>
+                                        <select id="sum-guaranteed" name="sum-guaranteed"
+                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
                                             <option value="">Wybierz sumę gwarancyjną</option>
                                             <option value="100000">100 000 PLN</option>
                                             <option value="250000">250 000 PLN</option>
@@ -189,21 +238,32 @@
                                 <h3 class="font-medium text-blue-800 mb-3">Ubezpieczenie NNW</h3>
                                 <div class="space-y-4">
                                     <div class="flex items-center">
-                                        <input id="nww-basic" name="nww-type" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                        <label for="nww-basic" class="ml-2 block text-sm text-gray-700">Podstawowe NNW</label>
+                                        <input id="nww-basic" name="nww-type" type="checkbox"
+                                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                        <label for="nww-basic" class="ml-2 block text-sm text-gray-700">Podstawowe
+                                            NNW</label>
                                     </div>
                                     <div class="ml-6 space-y-2">
                                         <div class="flex items-center">
-                                            <input id="nww-extended1" name="nww-extended1" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                            <label for="nww-extended1" class="ml-2 block text-sm text-gray-700">Rozszerzenie 1: Wypadek w życiu prywatnym</label>
+                                            <input id="nww-extended1" name="nww-extended1" type="checkbox"
+                                                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                            <label for="nww-extended1"
+                                                class="ml-2 block text-sm text-gray-700">Rozszerzenie 1: Wypadek w życiu
+                                                prywatnym</label>
                                         </div>
                                         <div class="flex items-center">
-                                            <input id="nww-extended2" name="nww-extended2" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                            <label for="nww-extended2" class="ml-2 block text-sm text-gray-700">Rozszerzenie 2: Assistance medyczny</label>
+                                            <input id="nww-extended2" name="nww-extended2" type="checkbox"
+                                                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                            <label for="nww-extended2"
+                                                class="ml-2 block text-sm text-gray-700">Rozszerzenie 2: Assistance
+                                                medyczny</label>
                                         </div>
                                         <div class="flex items-center">
-                                            <input id="nww-extended3" name="nww-extended3" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                            <label for="nww-extended3" class="ml-2 block text-sm text-gray-700">Rozszerzenie 3: Koszty leczenia</label>
+                                            <input id="nww-extended3" name="nww-extended3" type="checkbox"
+                                                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                            <label for="nww-extended3"
+                                                class="ml-2 block text-sm text-gray-700">Rozszerzenie 3: Koszty
+                                                leczenia</label>
                                         </div>
                                     </div>
                                 </div>
@@ -224,12 +284,16 @@
                     <div class="section-content mt-4">
                         <div class="space-y-4">
                             <div class="flex items-center">
-                                <input id="payment-single" name="payment-type" type="radio" value="single" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
-                                <label for="payment-single" class="ml-2 block text-sm text-gray-700">Płatność jednorazowa</label>
+                                <input id="payment-single" name="payment-type" type="radio" value="single"
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <label for="payment-single" class="ml-2 block text-sm text-gray-700">Płatność
+                                    jednorazowa</label>
                             </div>
                             <div class="flex items-center">
-                                <input id="payment-installments" name="payment-type" type="radio" value="installments" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
-                                <label for="payment-installments" class="ml-2 block text-sm text-gray-700">Płatność w dwóch ratach</label>
+                                <input id="payment-installments" name="payment-type" type="radio" value="installments"
+                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <label for="payment-installments" class="ml-2 block text-sm text-gray-700">Płatność w
+                                    dwóch ratach</label>
                             </div>
                         </div>
                     </div>
@@ -248,34 +312,43 @@
                         <div class="space-y-4">
                             <div class="flex items-start">
                                 <div class="flex items-center h-5">
-                                    <input id="declaration1" name="declaration1" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                    <input id="declaration1" name="declaration1" type="checkbox"
+                                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                                 </div>
                                 <label for="declaration1" class="ml-2 block text-sm text-gray-700 required-field">
-                                    Oświadczam, że podane przeze mnie dane są prawdziwe i kompletne. Jestem świadomy/a, że podanie nieprawdziwych danych może skutkować odmową wypłaty odszkodowania.
+                                    Oświadczam, że podane przeze mnie dane są prawdziwe i kompletne. Jestem świadomy/a,
+                                    że podanie nieprawdziwych danych może skutkować odmową wypłaty odszkodowania.
                                 </label>
                             </div>
                             <div class="flex items-start">
                                 <div class="flex items-center h-5">
-                                    <input id="declaration2" name="declaration2" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                    <input id="declaration2" name="declaration2" type="checkbox"
+                                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                                 </div>
                                 <label for="declaration2" class="ml-2 block text-sm text-gray-700 required-field">
-                                    Upoważniam brokera ubezpieczeniowego do występowania w moim imieniu do Towarzystwa Ubezpieczeniowego w sprawach związanych z zawarciem i realizacją umowy ubezpieczenia.
+                                    Upoważniam brokera ubezpieczeniowego do występowania w moim imieniu do Towarzystwa
+                                    Ubezpieczeniowego w sprawach związanych z zawarciem i realizacją umowy
+                                    ubezpieczenia.
                                 </label>
                             </div>
                             <div class="flex items-start">
                                 <div class="flex items-center h-5">
-                                    <input id="declaration3" name="declaration3" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                    <input id="declaration3" name="declaration3" type="checkbox"
+                                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                                 </div>
                                 <label for="declaration3" class="ml-2 block text-sm text-gray-700 required-field">
-                                    Wyrażam zgodę na przetwarzanie moich danych osobowych w celu zawarcia i realizacji umowy ubezpieczenia zgodnie z obowiązującymi przepisami o ochronie danych osobowych.
+                                    Wyrażam zgodę na przetwarzanie moich danych osobowych w celu zawarcia i realizacji
+                                    umowy ubezpieczenia zgodnie z obowiązującymi przepisami o ochronie danych osobowych.
                                 </label>
                             </div>
                             <div class="flex items-start">
                                 <div class="flex items-center h-5">
-                                    <input id="declaration4" name="declaration4" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                    <input id="declaration4" name="declaration4" type="checkbox"
+                                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                                 </div>
                                 <label for="declaration4" class="ml-2 block text-sm text-gray-700 required-field">
-                                    Zapoznałem/am się z warunkami programu ubezpieczeniowego i akceptuję jego postanowienia.
+                                    Zapoznałem/am się z warunkami programu ubezpieczeniowego i akceptuję jego
+                                    postanowienia.
                                 </label>
                             </div>
                         </div>
@@ -294,16 +367,23 @@
                     <div class="section-content mt-4">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
-                                <label for="location" class="block text-sm font-medium text-gray-700 required-field">Miejscowość</label>
-                                <input type="text" id="location" name="location" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                                <label for="location"
+                                    class="block text-sm font-medium text-gray-700 required-field">Miejscowość</label>
+                                <input type="text" id="location" name="location"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
                             </div>
                             <div>
-                                <label for="sign-date" class="block text-sm font-medium text-gray-700 required-field">Data</label>
-                                <input type="date" id="sign-date" name="sign-date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                                <label for="sign-date"
+                                    class="block text-sm font-medium text-gray-700 required-field">Data</label>
+                                <input type="date" id="sign-date" name="sign-date"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
                             </div>
                             <div>
-                                <label for="signature" class="block text-sm font-medium text-gray-700 required-field">Podpis (imię i nazwisko)</label>
-                                <input type="text" id="signature" name="signature" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                                <label for="signature"
+                                    class="block text-sm font-medium text-gray-700 required-field">Podpis (imię i
+                                    nazwisko)</label>
+                                <input type="text" id="signature" name="signature"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
                             </div>
                         </div>
                     </div>
@@ -311,7 +391,8 @@
 
                 <!-- Submit Button -->
                 <div class="mt-8 flex justify-center">
-                    <button type="submit" id="submit-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition duration-300 flex items-center">
+                    <button type="submit" id="submit-btn"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition duration-300 flex items-center">
                         <i class="fas fa-paper-plane mr-2"></i>
                         Wyślij wniosek
                     </button>
@@ -326,14 +407,14 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Collapsible sections
             const sectionHeaders = document.querySelectorAll('.section-header');
             sectionHeaders.forEach(header => {
-                header.addEventListener('click', function() {
+                header.addEventListener('click', function () {
                     const section = this.parentElement;
                     const icon = this.querySelector('i.fa-chevron-down');
-                    
+
                     section.classList.toggle('collapsed');
                     icon.classList.toggle('rotate-180');
                 });
@@ -342,14 +423,14 @@
             // Form validation
             const form = document.getElementById('insurance-form');
             const requiredFields = form.querySelectorAll('[class*="required-field"]');
-            
+
             // Mark required fields with red border if empty
             requiredFields.forEach(field => {
                 const input = field.closest('div').querySelector('input, select, textarea, [type="checkbox"], [type="radio"]');
                 if (input) {
-                    input.addEventListener('blur', function() {
+                    input.addEventListener('blur', function () {
                         if (this.type === 'checkbox' || this.type === 'radio') {
-                            const checked = form.querySelector([name="${this.name}"]:checked);
+                            const checked = form.querySelector([name = "${this.name}"]: checked);
                             if (!checked) {
                                 this.closest('div').classList.add('border-red-500', 'border-2', 'rounded-md', 'p-1');
                             } else {
@@ -364,73 +445,114 @@
                 }
             });
 
+            // Inside your <script> tag at the bottom of index.html
+
             // Form submission
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', function (e) {
                 e.preventDefault();
-                
+
                 let isValid = true;
-                
-                // Validate required fields
+                const errorMessageDiv = document.getElementById('error-message');
+                const successMessageDiv = document.getElementById('success-message');
+
+                // Hide previous messages
+                errorMessageDiv.classList.add('hidden');
+                successMessageDiv.classList.add('hidden');
+
+                // --- Client-side validation (same as before) ---
                 requiredFields.forEach(field => {
                     const input = field.closest('div').querySelector('input, select, textarea, [type="checkbox"], [type="radio"]');
                     if (input) {
-                        if (input.type === 'checkbox' || input.type === 'radio') {
+                        let fieldIsValid = true;
+                        if (input.type === 'checkbox') {
+                            // For single required checkboxes (like declarations)
+                            if (field.classList.contains('required-field') && !input.checked) {
+                                fieldIsValid = false;
+                            }
+                        } else if (input.type === 'radio') {
                             const name = input.name;
-                            const checked = form.querySelector([name="${name}"]:checked);
+                            const checked = form.querySelector(`[name="${name}"]:checked`);
                             if (!checked) {
-                                input.closest('div').classList.add('border-red-500', 'border-2', 'rounded-md', 'p-1');
-                                isValid = false;
+                                fieldIsValid = false;
                             }
                         } else if (input.value.trim() === '') {
-                            input.classList.add('border-red-500');
+                            fieldIsValid = false;
+                        }
+
+                        if (!fieldIsValid) {
                             isValid = false;
+                            if (input.type === 'checkbox' || input.type === 'radio') {
+                                input.closest('div.flex.items-center, div.mt-2.flex.space-x-4').classList.add('border-red-500', 'border-2', 'rounded-md', 'p-1');
+                                // Specific handling for radio groups in association-member
+                                if (input.name === "association-member") {
+                                    input.closest('.grid > div').classList.add('border-red-500', 'border-2', 'rounded-md', 'p-1');
+                                }
+                            } else {
+                                input.classList.add('border-red-500');
+                            }
+                        } else {
+                            if (input.type === 'checkbox' || input.type === 'radio') {
+                                input.closest('div.flex.items-center, div.mt-2.flex.space-x-4').classList.remove('border-red-500', 'border-2', 'rounded-md', 'p-1');
+                                if (input.name === "association-member") {
+                                    input.closest('.grid > div').classList.remove('border-red-500', 'border-2', 'rounded-md', 'p-1');
+                                }
+                            } else {
+                                input.classList.remove('border-red-500');
+                            }
                         }
                     }
                 });
-                
+                // --- End client-side validation ---
+
                 if (isValid) {
-                    // Simulate form submission
                     const submitBtn = document.getElementById('submit-btn');
                     submitBtn.disabled = true;
                     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Wysyłanie...';
-                    
-                    // Show success message after delay (simulating API call)
-                    setTimeout(() => {
-                        document.getElementById('success-message').classList.remove('hidden');
-                        form.reset();
-                        submitBtn.disabled = false;
-                        submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Wyślij wniosek';
-                        
-                        // Scroll to success message
-                        document.getElementById('success-message').scrollIntoView({ behavior: 'smooth' });
-                        
-                        // Update progress bar to 100%
-                        document.getElementById('progress-bar').style.width = '100%';
-                    }, 1500);
+
+                    const formData = new FormData(form);
+
+                    fetch(form.action, { // Uses the action URL from your form tag
+                        method: 'POST',
+                        body: formData
+                        // No 'Content-Type' header needed for FormData with fetch; browser sets it.
+                        // No 'Accept: application/json' needed as GAS will return text/JSON by default
+                    })
+                        .then(response => response.json()) // Expect a JSON response from GAS
+                        .then(data => {
+                            if (data.result === "success") {
+                                successMessageDiv.classList.remove('hidden');
+                                successMessageDiv.querySelector('p.mt-2').textContent = data.message || 'Twój wniosek został pomyślnie wysłany. Dziękujemy!';
+                                form.reset();
+                                // Clear any lingering validation styles
+                                form.querySelectorAll('.border-red-500').forEach(el => el.classList.remove('border-red-500', 'border-2', 'rounded-md', 'p-1'));
+                                document.getElementById('progress-bar').style.width = '0%'; // Or 100% then reset after a delay
+                                successMessageDiv.scrollIntoView({ behavior: 'smooth' });
+                            } else {
+                                throw new Error(data.message || 'Wystąpił nieznany błąd serwera.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Form submission error:', error);
+                            errorMessageDiv.querySelector('p.mt-2').textContent = error.message || 'Wystąpił problem podczas przesyłania formularza. Proszę spróbować ponownie lub skontaktować się z administratorem.';
+                            errorMessageDiv.classList.remove('hidden');
+                            errorMessageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        })
+                        .finally(() => {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Wyślij wniosek';
+                        });
+
                 } else {
-                    // Show error message
-                    document.getElementById('error-message').classList.remove('hidden');
-                    
+                    // Show generic error message for client-side validation failures
+                    errorMessageDiv.querySelector('p.mt-2').textContent = 'Proszę sprawdzić wszystkie wymagane pola i spróbować ponownie.';
+                    errorMessageDiv.classList.remove('hidden');
+
                     // Scroll to first error
                     const firstError = form.querySelector('.border-red-500');
                     if (firstError) {
                         firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
                 }
-            });
-
-            // Update progress bar as user fills the form
-            form.addEventListener('input', function() {
-                const totalFields = form.querySelectorAll('input, select, textarea').length;
-                const filledFields = Array.from(form.querySelectorAll('input, select, textarea')).filter(field => {
-                    if (field.type === 'checkbox' || field.type === 'radio') {
-                        return form.querySelector([name="${field.name}"]:checked);
-                    }
-                    return field.value.trim() !== '';
-                }).length;
-                
-                const progress = (filledFields / totalFields) * 100;
-                document.getElementById('progress-bar').style.width = ${progress}%;
             });
         });
     </script>
