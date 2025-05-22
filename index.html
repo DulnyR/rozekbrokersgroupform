@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wniosek o ubezpieczenie dla fizyków medycznych</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .form-section {
+            transition: all 0.3s ease;
+        }
+        .form-section.collapsed {
+            opacity: 0.7;
+        }
+        .form-section.collapsed .section-content {
+            display: none;
+        }
+        .required-field::after {
+            content: "*";
+            color: #ef4444;
+            margin-left: 2px;
+        }
+        .success-message {
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <header class="bg-blue-800 text-white rounded-lg shadow-md p-6 mb-8">
+            <div class="flex items-center">
+                <div class="mr-4">
+                    <i class="fas fa-shield-alt text-4xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold">Wniosek o zawarcie umowy ubezpieczenia</h1>
+                    <p class="text-blue-200 mt-2">Współpraca z Ogólnopolskim Związkiem Zawodowym Fizyków Medycznych</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Form Container -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <!-- Progress Bar -->
+            <div class="bg-gray-200 h-2">
+                <div id="progress-bar" class="bg-blue-600 h-2 transition-all duration-300" style="width: 0%"></div>
+            </div>
+
+            <!-- Form Sections -->
+            <form id="insurance-form" class="p-6">
+                <!-- Success Message (hidden by default) -->
+                <div id="success-message" class="success-message hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        <span class="font-bold">Sukces!</span>
+                    </div>
+                    <p class="mt-2">Twój wniosek został pomyślnie wysłany. Dziękujemy!</p>
+                </div>
+
+                <!-- Error Message (hidden by default) -->
+                <div id="error-message" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+                    <div class="flex items-center">
+                        <i class="fas fa-exclamation-circle text-red-500 mr-2"></i>
+                        <span class="font-bold">Błąd!</span>
+                    </div>
+                    <p class="mt-2">Wystąpił problem podczas przesyłania formularza. Proszę sprawdzić wszystkie wymagane pola i spróbować ponownie.</p>
+                </div>
+
+                <!-- Section I: General Information -->
+                <div class="form-section mb-8 border-b pb-6">
+                    <div class="section-header flex justify-between items-center cursor-pointer">
+                        <h2 class="text-xl font-semibold text-blue-800 flex items-center">
+                            <i class="fas fa-user-circle mr-2"></i>
+                            <span>I. Informacje ogólne</span>
+                        </h2>
+                        <i class="fas fa-chevron-down text-blue-800 transition-transform duration-300"></i>
+                    </div>
+                    <div class="section-content mt-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="full-name" class="block text-sm font-medium text-gray-700 required-field">Imię i nazwisko</label>
+                                <input type="text" id="full-name" name="full-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                            </div>
+                            <div>
+                                <label for="address" class="block text-sm font-medium text-gray-700 required-field">Adres</label>
+                                <input type="text" id="address" name="address" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700 required-field">Telefon</label>
+                                <input type="tel" id="phone" name="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 required-field">E-mail</label>
+                                <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                            </div>
+                            <div>
+                                <label for="fax" class="block text-sm font-medium text-gray-700">Faks (opcjonalnie)</label>
+                                <input type="text" id="fax" name="fax" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                            </div>
+                            <div>
+                                <label for="regon" class="block text-sm font-medium text-gray-700">REGON</label>
+                                <input type="text" id="regon" name="regon" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                            </div>
+                            <div>
+                                <label for="nip" class="block text-sm font-medium text-gray-700">NIP</label>
+                                <input type="text" id="nip" name="nip" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                            </div>
+                            <div>
+                                <label for="pesel" class="block text-sm font-medium text-gray-700 required-field">PESEL</label>
+                                <input type="text" id="pesel" name="pesel" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section II: Insurance Period -->
+                <div class="form-section mb-8 border-b pb-6">
+                    <div class="section-header flex justify-between items-center cursor-pointer">
+                        <h2 class="text-xl font-semibold text-blue-800 flex items-center">
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            <span>II. Okres ubezpieczenia</span>
+                        </h2>
+                        <i class="fas fa-chevron-down text-blue-800 transition-transform duration-300"></i>
+                    </div>
+                    <div class="section-content mt-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="start-date" class="block text-sm font-medium text-gray-700 required-field">Data rozpoczęcia</label>
+                                <input type="date" id="start-date" name="start-date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                            </div>
+                            <div>
+                                <label for="end-date" class="block text-sm font-medium text-gray-700 required-field">Data zakończenia</label>
+                                <input type="date" id="end-date" name="end-date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section III: Requested Insurance -->
+                <div class="form-section mb-8 border-b pb-6">
+                    <div class="section-header flex justify-between items-center cursor-pointer">
+                        <h2 class="text-xl font-semibold text-blue-800 flex items-center">
+                            <i class="fas fa-file-contract mr-2"></i>
+                            <span>III. Wnioskowane ubezpieczenia</span>
+                        </h2>
+                        <i class="fas fa-chevron-down text-blue-800 transition-transform duration-300"></i>
+                    </div>
+                    <div class="section-content mt-4">
+                        <div class="space-y-6">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h3 class="font-medium text-blue-800 mb-3">Ubezpieczenie OC zawodowego</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 required-field">Członek Związku Fizyków Medycznych</label>
+                                        <div class="mt-2 flex space-x-4">
+                                            <div class="flex items-center">
+                                                <input id="member-yes" name="association-member" type="radio" value="yes" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                                <label for="member-yes" class="ml-2 block text-sm text-gray-700">TAK</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input id="member-no" name="association-member" type="radio" value="no" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                                <label for="member-no" class="ml-2 block text-sm text-gray-700">NIE</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="sum-guaranteed" class="block text-sm font-medium text-gray-700 required-field">Suma gwarancyjna</label>
+                                        <select id="sum-guaranteed" name="sum-guaranteed" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                                            <option value="">Wybierz sumę gwarancyjną</option>
+                                            <option value="100000">100 000 PLN</option>
+                                            <option value="250000">250 000 PLN</option>
+                                            <option value="500000">500 000 PLN</option>
+                                            <option value="1000000">1 000 000 PLN</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h3 class="font-medium text-blue-800 mb-3">Ubezpieczenie NNW</h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-center">
+                                        <input id="nww-basic" name="nww-type" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                        <label for="nww-basic" class="ml-2 block text-sm text-gray-700">Podstawowe NNW</label>
+                                    </div>
+                                    <div class="ml-6 space-y-2">
+                                        <div class="flex items-center">
+                                            <input id="nww-extended1" name="nww-extended1" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                            <label for="nww-extended1" class="ml-2 block text-sm text-gray-700">Rozszerzenie 1: Wypadek w życiu prywatnym</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input id="nww-extended2" name="nww-extended2" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                            <label for="nww-extended2" class="ml-2 block text-sm text-gray-700">Rozszerzenie 2: Assistance medyczny</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input id="nww-extended3" name="nww-extended3" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                            <label for="nww-extended3" class="ml-2 block text-sm text-gray-700">Rozszerzenie 3: Koszty leczenia</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section IV: Payment -->
+                <div class="form-section mb-8 border-b pb-6">
+                    <div class="section-header flex justify-between items-center cursor-pointer">
+                        <h2 class="text-xl font-semibold text-blue-800 flex items-center">
+                            <i class="fas fa-credit-card mr-2"></i>
+                            <span>IV. Płatność</span>
+                        </h2>
+                        <i class="fas fa-chevron-down text-blue-800 transition-transform duration-300"></i>
+                    </div>
+                    <div class="section-content mt-4">
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <input id="payment-single" name="payment-type" type="radio" value="single" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <label for="payment-single" class="ml-2 block text-sm text-gray-700">Płatność jednorazowa</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="payment-installments" name="payment-type" type="radio" value="installments" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <label for="payment-installments" class="ml-2 block text-sm text-gray-700">Płatność w dwóch ratach</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section V: Declarations -->
+                <div class="form-section mb-8 border-b pb-6">
+                    <div class="section-header flex justify-between items-center cursor-pointer">
+                        <h2 class="text-xl font-semibold text-blue-800 flex items-center">
+                            <i class="fas fa-file-signature mr-2"></i>
+                            <span>V. Oświadczenia</span>
+                        </h2>
+                        <i class="fas fa-chevron-down text-blue-800 transition-transform duration-300"></i>
+                    </div>
+                    <div class="section-content mt-4">
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="declaration1" name="declaration1" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                </div>
+                                <label for="declaration1" class="ml-2 block text-sm text-gray-700 required-field">
+                                    Oświadczam, że podane przeze mnie dane są prawdziwe i kompletne. Jestem świadomy/a, że podanie nieprawdziwych danych może skutkować odmową wypłaty odszkodowania.
+                                </label>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="declaration2" name="declaration2" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                </div>
+                                <label for="declaration2" class="ml-2 block text-sm text-gray-700 required-field">
+                                    Upoważniam brokera ubezpieczeniowego do występowania w moim imieniu do Towarzystwa Ubezpieczeniowego w sprawach związanych z zawarciem i realizacją umowy ubezpieczenia.
+                                </label>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="declaration3" name="declaration3" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                </div>
+                                <label for="declaration3" class="ml-2 block text-sm text-gray-700 required-field">
+                                    Wyrażam zgodę na przetwarzanie moich danych osobowych w celu zawarcia i realizacji umowy ubezpieczenia zgodnie z obowiązującymi przepisami o ochronie danych osobowych.
+                                </label>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="declaration4" name="declaration4" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                </div>
+                                <label for="declaration4" class="ml-2 block text-sm text-gray-700 required-field">
+                                    Zapoznałem/am się z warunkami programu ubezpieczeniowego i akceptuję jego postanowienia.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Signature Section -->
+                <div class="form-section mb-8">
+                    <div class="section-header flex justify-between items-center cursor-pointer">
+                        <h2 class="text-xl font-semibold text-blue-800 flex items-center">
+                            <i class="fas fa-pen-fancy mr-2"></i>
+                            <span>Podpis i lokalizacja</span>
+                        </h2>
+                        <i class="fas fa-chevron-down text-blue-800 transition-transform duration-300"></i>
+                    </div>
+                    <div class="section-content mt-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label for="location" class="block text-sm font-medium text-gray-700 required-field">Miejscowość</label>
+                                <input type="text" id="location" name="location" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                            </div>
+                            <div>
+                                <label for="sign-date" class="block text-sm font-medium text-gray-700 required-field">Data</label>
+                                <input type="date" id="sign-date" name="sign-date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                            </div>
+                            <div>
+                                <label for="signature" class="block text-sm font-medium text-gray-700 required-field">Podpis (imię i nazwisko)</label>
+                                <input type="text" id="signature" name="signature" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="mt-8 flex justify-center">
+                    <button type="submit" id="submit-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition duration-300 flex items-center">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        Wyślij wniosek
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-8 text-center text-gray-500 text-sm">
+            <p>© 2023 Ogólnopolski Związek Zawodowy Fizyków Medycznych. Wszelkie prawa zastrzeżone.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Collapsible sections
+            const sectionHeaders = document.querySelectorAll('.section-header');
+            sectionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const section = this.parentElement;
+                    const icon = this.querySelector('i.fa-chevron-down');
+                    
+                    section.classList.toggle('collapsed');
+                    icon.classList.toggle('rotate-180');
+                });
+            });
+
+            // Form validation
+            const form = document.getElementById('insurance-form');
+            const requiredFields = form.querySelectorAll('[class*="required-field"]');
+            
+            // Mark required fields with red border if empty
+            requiredFields.forEach(field => {
+                const input = field.closest('div').querySelector('input, select, textarea, [type="checkbox"], [type="radio"]');
+                if (input) {
+                    input.addEventListener('blur', function() {
+                        if (this.type === 'checkbox' || this.type === 'radio') {
+                            const checked = form.querySelector([name="${this.name}"]:checked);
+                            if (!checked) {
+                                this.closest('div').classList.add('border-red-500', 'border-2', 'rounded-md', 'p-1');
+                            } else {
+                                this.closest('div').classList.remove('border-red-500', 'border-2', 'rounded-md', 'p-1');
+                            }
+                        } else if (this.value.trim() === '') {
+                            this.classList.add('border-red-500');
+                        } else {
+                            this.classList.remove('border-red-500');
+                        }
+                    });
+                }
+            });
+
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                let isValid = true;
+                
+                // Validate required fields
+                requiredFields.forEach(field => {
+                    const input = field.closest('div').querySelector('input, select, textarea, [type="checkbox"], [type="radio"]');
+                    if (input) {
+                        if (input.type === 'checkbox' || input.type === 'radio') {
+                            const name = input.name;
+                            const checked = form.querySelector([name="${name}"]:checked);
+                            if (!checked) {
+                                input.closest('div').classList.add('border-red-500', 'border-2', 'rounded-md', 'p-1');
+                                isValid = false;
+                            }
+                        } else if (input.value.trim() === '') {
+                            input.classList.add('border-red-500');
+                            isValid = false;
+                        }
+                    }
+                });
+                
+                if (isValid) {
+                    // Simulate form submission
+                    const submitBtn = document.getElementById('submit-btn');
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Wysyłanie...';
+                    
+                    // Show success message after delay (simulating API call)
+                    setTimeout(() => {
+                        document.getElementById('success-message').classList.remove('hidden');
+                        form.reset();
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Wyślij wniosek';
+                        
+                        // Scroll to success message
+                        document.getElementById('success-message').scrollIntoView({ behavior: 'smooth' });
+                        
+                        // Update progress bar to 100%
+                        document.getElementById('progress-bar').style.width = '100%';
+                    }, 1500);
+                } else {
+                    // Show error message
+                    document.getElementById('error-message').classList.remove('hidden');
+                    
+                    // Scroll to first error
+                    const firstError = form.querySelector('.border-red-500');
+                    if (firstError) {
+                        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            });
+
+            // Update progress bar as user fills the form
+            form.addEventListener('input', function() {
+                const totalFields = form.querySelectorAll('input, select, textarea').length;
+                const filledFields = Array.from(form.querySelectorAll('input, select, textarea')).filter(field => {
+                    if (field.type === 'checkbox' || field.type === 'radio') {
+                        return form.querySelector([name="${field.name}"]:checked);
+                    }
+                    return field.value.trim() !== '';
+                }).length;
+                
+                const progress = (filledFields / totalFields) * 100;
+                document.getElementById('progress-bar').style.width = ${progress}%;
+            });
+        });
+    </script>
+</body>
+</html>
