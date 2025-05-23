@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rożek Brokers Group | Ubezpieczenia dla Fizyków Medycznych</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+        }
+        .nav-link:hover {
+            color: #3b82f6; /* Tailwind blue-500 */
+            transition: all 0.3s ease;
+        }
+        .insurance-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .insurance-card {
+            transition: all 0.3s ease;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out; /* Adjusted for smoother feel */
+        }
+        .accordion-content.active {
+            max-height: 1000px; /* Ensure this is enough for your content */
+            transition: max-height 0.5s ease-in; /* Adjusted for smoother feel */
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="images/rozek-logo.png" alt="Rożek Brokers Group Logo" class="h-10 mr-3"> <!-- Main Logo in Nav -->
+                <span class="text-xl font-bold text-blue-800">Rożek<span class="text-blue-500">Brokers Group</span></span>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link text-gray-700 hover:text-blue-600 font-medium">Strona główna</a>
+                <a href="#about" class="nav-link text-gray-700 hover:text-blue-600 font-medium">O nas</a>
+                <a href="#insurance" class="nav-link text-gray-700 hover:text-blue-600 font-medium">Ubezpieczenie</a>
+                <!-- Kontakt link removed -->
+            </div>
+            <button class="md:hidden text-gray-700 focus:outline-none" id="mobile-menu-button">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-white w-full px-4 py-2 shadow-md" id="mobile-menu">
+            <a href="#home" class="block py-2 text-gray-700 hover:text-blue-600">Strona główna</a>
+            <a href="#about" class="block py-2 text-gray-700 hover:text-blue-600">O nas</a>
+            <a href="#insurance" class="block py-2 text-gray-700 hover:text-blue-600">Ubezpieczenie</a>
+            <!-- Kontakt link removed -->
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient text-white py-16 md:py-24">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Specjalistyczne ubezpieczenie dla fizyków medycznych</h1>
+                <p class="text-xl mb-8 opacity-90">Zapewniamy kompleksową ochronę OC oraz NNW dedykowaną fizykom medycznym zatrudnionym na umowę o pracę, umowę zlecenie, umowę o dzieło oraz prowadzącym własną działalność gospodarczą.</p>
+                <a href="form.html" class="inline-block bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-blue-50 transition duration-300 transform hover:scale-105 shadow-lg">
+                    WYPEŁNIJ WNIOSEK <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Fizyk medyczny przy pracy" class="rounded-lg shadow-2xl max-w-md w-full">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Dlaczego warto wybrać nasze ubezpieczenie?</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 text-center">
+                    <div class="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-bolt text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Szybka procedura</h3>
+                    <p class="text-gray-600">Wniosek online w 5 minut, polisa dostarczona w ciągu 24 godzin.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 text-center">
+                    <div class="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-hand-holding-usd text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Atrakcyjne ceny</h3>
+                    <p class="text-gray-600">Specjalne zniżki dla członków OZZFM i PTFM.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 text-center">
+                    <div class="bg-blue-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-headset text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Wsparcie 24/7</h3>
+                    <p class="text-gray-600">Dedykowana pomoc prawna i analiza zasadności roszczeń.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">Kim jesteśmy?</h2>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        Jesteśmy firmą brokerską Rożek Brokers Group, specjalizującą się w obsłudze ubezpieczeń dedykowanych fizykom medycznym. Dzięki współpracy z Ogólnopolskim Związkiem Zawodowym Fizyków Medycznych oferujemy program ubezpieczeń zawodowych, który spełnia wszystkie wymogi prawne i branżowe.
+                    </p>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                        Naszym celem jest zapewnienie Ci maksymalnego bezpieczeństwa i komfortu pracy, dzięki czemu możesz skupić się na tym, co najważniejsze - pomaganiu pacjentom.
+                    </p>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold mb-4 text-blue-600">Nasze wartości</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Profesjonalizm w każdym szczególe</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Zrozumienie specyfiki zawodu</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Indywidualne podejście do klienta</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Transparentność warunków</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span class="text-gray-700">Szybka i skuteczna pomoc</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insurance Section -->
+    <section id="insurance" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Nasza oferta ubezpieczeniowa</h2>
+            
+            <!-- OC Insurance -->
+            <div class="mb-16">
+                <div class="bg-blue-50 p-6 rounded-t-lg">
+                    <h3 class="text-2xl font-semibold text-blue-800 flex items-center">
+                        <i class="fas fa-user-shield mr-3"></i> Ubezpieczenie odpowiedzialności cywilnej zawodowej
+                    </h3>
+                </div>
+                <div class="border border-gray-200 rounded-b-lg p-6">
+                    <p class="text-gray-700 mb-6">
+                        Chronimy Cię przed skutkami finansowymi szkód wyrządzonych osobom trzecim w związku z wykonywaniem zawodu fizyka medycznego.
+                    </p>
+                    
+                    <h4 class="text-xl font-medium text-gray-800 mb-4">Zakres ochrony:</h4>
+                    <div class="grid md:grid-cols-2 gap-4 mb-6">
+                        <div class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Szkody osobowe, rzeczowe oraz czyste straty finansowe</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Odpowiedzialność za mienie powierzone i sprzęt używany w pracy</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Odpowiedzialność za rażące niedbalstwo</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Kary umowne i regresy, także te nałożone na pracodawcę</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Szkody związane z przeniesieniem chorób zakaźnych (np. HIV)</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Szkody wynikające z używania urządzeń rentgenowskich, laserowych oraz materiałów radioaktywnych</span>
+                        </div>
+                    </div>
+                    
+                    <h4 class="text-xl font-medium text-gray-800 mb-4">Dodatkowe świadczenia:</h4>
+                    <div class="grid md:grid-cols-2 gap-4 mb-6">
+                        <div class="flex items-start">
+                            <i class="fas fa-plus-circle text-blue-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Analiza zasadności roszczeń</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-plus-circle text-blue-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Pomoc prawna i pokrycie kosztów związanych z procesami sądowymi</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-plus-circle text-blue-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Zwrot kosztów środków zapobiegających szkodom</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-gray-800 font-medium">
+                            <i class="fas fa-coins text-yellow-500 mr-2"></i> Suma gwarancyjna: od 25 000 zł do 3 000 000 zł, z możliwością specjalnych zniżek dla członków OZZFM i PTFM.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NNW Insurance -->
+            <div class="mb-16">
+                <div class="bg-blue-50 p-6 rounded-t-lg">
+                    <h3 class="text-2xl font-semibold text-blue-800 flex items-center">
+                        <i class="fas fa-ambulance mr-3"></i> Ubezpieczenie następstw nieszczęśliwych wypadków (NNW)
+                    </h3>
+                </div>
+                <div class="border border-gray-200 rounded-b-lg p-6">
+                    <p class="text-gray-700 mb-6">
+                        Chronimy Cię także na wypadek nieszczęśliwych zdarzeń związanych z wykonywaniem zawodu fizyka medycznego.
+                    </p>
+                    
+                    <h4 class="text-xl font-medium text-gray-800 mb-4">Zakres ochrony:</h4>
+                    <div class="grid md:grid-cols-2 gap-4 mb-6">
+                        <div class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Koszty leczenia</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Śmierć lub uszczerbek na zdrowiu</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Pobyt w szpitalu</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Wypadki związane ze skażeniem jądrowym, chemicznym lub napromieniowaniem</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span class="text-gray-700">Zwrot kosztów badań niezrefundowanych przez pracodawcę</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-gray-800 font-medium">
+                            <i class="fas fa-coins text-yellow-500 mr-2"></i> Proponowane sumy ubezpieczenia: od 10 000 do 50 000 zł.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- How to Join -->
+            <div class="bg-blue-600 text-white rounded-lg p-8 shadow-lg">
+                <h3 class="text-2xl font-bold mb-6">Jak przystąpić do programu?</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-blue-700 p-6 rounded-lg">
+                        <div class="text-4xl font-bold text-blue-200 mb-3">1</div>
+                        <h4 class="text-xl font-semibold mb-2">Wypełnij wniosek</h4>
+                        <p class="text-blue-100">Online lub prześlij skan na adres: fizykmedyczny@rozek.pl</p>
+                    </div>
+                    <div class="bg-blue-700 p-6 rounded-lg">
+                        <div class="text-4xl font-bold text-blue-200 mb-3">2</div>
+                        <h4 class="text-xl font-semibold mb-2">Otrzymaj polisę</h4>
+                        <p class="text-blue-100">Wystawimy dokument i prześlemy go do Ciebie pocztą lub mailowo</p>
+                    </div>
+                    <div class="bg-blue-700 p-6 rounded-lg">
+                        <div class="text-4xl font-bold text-blue-200 mb-3">3</div>
+                        <h4 class="text-xl font-semibold mb-2">Opłać składkę</h4>
+                        <p class="text-blue-100">Zgodnie z harmonogramem. Możesz rozłożyć ją na dwie raty.</p>
+                    </div>
+                </div>
+                <div class="mt-8 text-center">
+                    <a href="form.html" class="inline-block bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-blue-50 transition duration-300 transform hover:scale-105 shadow-lg">
+                        ROZPOCZNIJ TERAZ <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Najczęściej zadawane pytania</h2>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="accordion-item mb-4 border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="accordion-button w-full text-left bg-white p-5 font-medium text-lg focus:outline-none flex justify-between items-center">
+                        <span>Kto może skorzystać z ubezpieczenia?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content bg-white border-t border-gray-200">
+                        <div class="p-5 text-gray-700">
+                            Nasze ubezpieczenie dedykowane jest fizykom medycznym zatrudnionym na umowę o pracę, umowę zlecenie, umowę o dzieło oraz prowadzącym własną działalność gospodarczą. Obejmuje zarówno specjalistów pracujących w szpitalach, przychodniach, jak i w prywatnych gabinetach.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item mb-4 border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="accordion-button w-full text-left bg-white p-5 font-medium text-lg focus:outline-none flex justify-between items-center">
+                        <span>Jakie dokumenty są potrzebne do zawarcia umowy?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content bg-white border-t border-gray-200">
+                        <div class="p-5 text-gray-700">
+                            Wystarczy wypełnić nasz formularz online, podając podstawowe dane osobowe i informacje o wykonywanym zawodzie. W niektórych przypadkach możemy poprosić o kopię dyplomu lub zaświadczenia o członkostwie w organizacjach branżowych w celu przyznania zniżki.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item mb-4 border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="accordion-button w-full text-left bg-white p-5 font-medium text-lg focus:outline-none flex justify-between items-center">
+                        <span>Czy ubezpieczenie obejmuje pracę za granicą?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content bg-white border-t border-gray-200">
+                        <div class="p-5 text-gray-700">
+                            Standardowa polisa obejmuje terytorium Polski. Istnieje możliwość rozszerzenia ochrony na czasowe wyjazdy służbowe za granicę - szczegóły ustalamy indywidualnie w zależności od kraju i czasu trwania wyjazdu.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item mb-4 border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="accordion-button w-full text-left bg-white p-5 font-medium text-lg focus:outline-none flex justify-between items-center">
+                        <span>Jak zgłosić szkodę?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content bg-white border-t border-gray-200">
+                        <div class="p-5 text-gray-700">
+                            Szkodę można zgłosić telefonicznie pod numerem 507 301 842, mailowo na adres fizykmedyczny@rozek.pl lub poprzez formularz w panelu klienta na naszej stronie internetowej. Nasz zespół pomoże w przygotowaniu niezbędnej dokumentacji i poprowadzi cały proces odszkodowawczy.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section Removed -->
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <!-- Top Part of Footer (Logos and Office Info) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10 items-start text-center md:text-left">
+                <!-- Rożek Brokers Group Logo and Social -->
+                <div class="md:col-span-1 flex flex-col items-center md:items-start">
+                    <img src="images/rozek-logo.png" alt="Rożek Brokers Group" class="h-16 mb-6"> <!-- Adjusted margin -->
+                    <div class="flex items-center mb-3">
+                        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition flex items-center">
+                            <i class="fab fa-facebook-f text-xl mr-3"></i> Like Us on Facebook
+                        </a>
+                    </div>
+                    <div class="flex items-center">
+                        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition flex items-center">
+                            <i class="fab fa-linkedin-in text-xl mr-3"></i> Find Us on LinkedIn
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Office Information -->
+                <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-lg font-semibold mb-2 text-gray-300 uppercase">Tychy Office</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            43-100 Tychy<br>
+                            ul. Łabędzia 45<br>
+                            <a href="tel:+48509512841" class="hover:text-white">+48 509 512 841</a><br>
+                            <a href="mailto:tychy@rozek.pl" class="hover:text-white">tychy@rozek.pl</a>
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-2 text-gray-300 uppercase">Sandomierz Office</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            27-600 Sandomierz<br>
+                            ul. Dobkiewicza 22<br>
+                            <a href="tel:+48519688354" class="hover:text-white">+48 519 688 354</a><br>
+                            <a href="mailto:kancelaria@rozek.pl" class="hover:text-white">kancelaria@rozek.pl</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Horizontal Line -->
+            <hr class="border-gray-700 my-8">
+
+            <!-- Bottom Part of Footer (EU/PL/Podkarpackie Logos and Copyright) -->
+            <div class="flex flex-col items-center">
+                <div class="flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8 mb-8">
+                    <img src="images/fundusze-europejskie.png" alt="Fundusze Europejskie Program Regionalny" class="h-10 sm:h-12" title="Fundusze Europejskie Program Regionalny">
+                    <img src="images/pl-flag-logo.png" alt="Rzeczpospolita Polska" class="h-8 sm:h-10" title="Rzeczpospolita Polska">
+                    <img src="images/podkarpackie-logo.png" alt="Podkarpackie" class="h-8 sm:h-10" title="Podkarpackie">
+                    <img src="images/eu-efs-logo.png" alt="Unia Europejska Europejski Fundusz Społeczny" class="h-10 sm:h-12" title="Unia Europejska Europejski Fundusz Społeczny">
+                </div>
+                <p class="text-gray-400 text-sm">© Rożek Brokers Group</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Accordion functionality
+        const accordionButtons = document.querySelectorAll('.accordion-button');
+        accordionButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const icon = this.querySelector('i.fa-chevron-down'); // More specific selector for the icon
+                
+                // Close other open accordions
+                accordionButtons.forEach(otherButton => {
+                    if (otherButton !== this) {
+                        otherButton.nextElementSibling.classList.remove('active');
+                        otherButton.querySelector('i.fa-chevron-down').classList.remove('rotate-180');
+                    }
+                });
+                
+                if (content) {
+                    content.classList.toggle('active');
+                }
+                if (icon) {
+                    icon.classList.toggle('rotate-180');
+                }
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                // Check if targetId is just "#" to prevent errors if it's a placeholder
+                if (targetId === "#") return; 
+
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    let offset = 80; // Default offset for desktop nav
+                    const nav = document.querySelector('nav.sticky');
+                    if (nav) {
+                        offset = nav.offsetHeight + 10; // Dynamically get nav height + some padding
+                    }
+
+                    window.scrollTo({
+                        top: targetElement.offsetTop - offset,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open and if it exists
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
