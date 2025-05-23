@@ -71,7 +71,7 @@
 
             <!-- Form Sections -->
             <form id="insurance-form"
-                action="https://script.google.com/macros/s/AKfycbxSbV4NFol2FEJqSIWtSQnGgKE6OONJx7Bln0iRsBJdWDOHGywxU9gTWvd8mAQ_rV0S/exec"
+                action="https://script.google.com/macros/s/AKfycbyeu-V2zzPv-mnRghxDrOFi92s-z4LyS1fvDXBGBPEGdtho1jHyPnf-Pe81G9_n0zqv/exec"
                 method="POST" class="p-6">
                 <!-- Success Message (hidden by default) -->
                 <div id="success-message"
@@ -185,12 +185,91 @@
                     </div>
                 </div>
 
-                <!-- Section III: Requested Insurance -->
+                <!-- NEW Section III: Informacje dodatkowe -->
+                <div class="form-section mb-8 border-b pb-6">
+                    <div class="section-header flex justify-between items-center cursor-pointer">
+                        <h2 class="text-xl font-semibold text-blue-800 flex items-center">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            <span>III. Informacje dodatkowe</span>
+                        </h2>
+                        <i class="fas fa-chevron-down text-blue-800 transition-transform duration-300"></i>
+                    </div>
+                    <div class="section-content mt-4 space-y-4">
+                        <div>
+                            <label for="turnover" class="block text-sm font-medium text-gray-700">1. Wysokość obrotów w ostatnim okresie obrachunkowym (lub planowanych dla nowych działalności)</label>
+                            <input type="text" id="turnover" name="turnover" placeholder="np. 150000 PLN" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">2. W ciągu ostatniego roku wypłacone zostały odszkodowania</label>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="flex items-center">
+                                    <input id="claims-paid-yes" name="claims-paid" type="radio" value="yes" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                    <label for="claims-paid-yes" class="ml-2 block text-sm text-gray-700">TAK</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="claims-paid-no" name="claims-paid" type="radio" value="no" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                    <label for="claims-paid-no" class="ml-2 block text-sm text-gray-700">NIE</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="claims-amount-div" class="hidden"> {/* Hidden by default, shown if claims-paid is yes */}
+                            <label for="claims-amount" class="block text-sm font-medium text-gray-700">Na łączną kwotę (PLN)</label>
+                            <input type="number" step="0.01" id="claims-amount" name="claims-amount" placeholder="np. 5000.00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">3. Jestem członkiem Ogólnopolskiego Związku Zawodowego Fizyków Medycznych</label>
+                            <div class="mt-2 flex space-x-4">
+                                <div class="flex items-center">
+                                    <input id="member-ozzfm-yes" name="member-ozzfm" type="radio" value="yes" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                    <label for="member-ozzfm-yes" class="ml-2 block text-sm text-gray-700">TAK</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="member-ozzfm-no" name="member-ozzfm" type="radio" value="no" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                    <label for="member-ozzfm-no" class="ml-2 block text-sm text-gray-700">NIE</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">4. Jestem członkiem Polskiego Towarzystwa Fizyki Medycznej</label>
+                            <div class="mt-2 flex space-x-4">
+                                <div class="flex items-center">
+                                    <input id="member-ptfm-yes" name="member-ptfm" type="radio" value="yes" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                    <label for="member-ptfm-yes" class="ml-2 block text-sm text-gray-700">TAK</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="member-ptfm-no" name="member-ptfm" type="radio" value="no" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                    <label for="member-ptfm-no" class="ml-2 block text-sm text-gray-700">NIE</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">5. Jestem technikiem elektroradiologiem</label>
+                            <div class="mt-2 flex space-x-4">
+                                <div class="flex items-center">
+                                    <input id="is-radiographer-yes" name="is-radiographer" type="radio" value="yes" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                    <label for="is-radiographer-yes" class="ml-2 block text-sm text-gray-700">TAK</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="is-radiographer-no" name="is-radiographer" type="radio" value="no" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                    <label for="is-radiographer-no" class="ml-2 block text-sm text-gray-700">NIE</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section IV: Requested Insurance -->
                 <div class="form-section mb-8 border-b pb-6">
                     <div class="section-header flex justify-between items-center cursor-pointer">
                         <h2 class="text-xl font-semibold text-blue-800 flex items-center">
                             <i class="fas fa-file-contract mr-2"></i>
-                            <span>III. Wnioskowane ubezpieczenia</span>
+                            <span>IV. Wnioskowane ubezpieczenia</span>
                         </h2>
                         <i class="fas fa-chevron-down text-blue-800 transition-transform duration-300"></i>
                     </div>
@@ -272,12 +351,12 @@
                     </div>
                 </div>
 
-                <!-- Section IV: Payment -->
+                <!-- Section V: Payment -->
                 <div class="form-section mb-8 border-b pb-6">
                     <div class="section-header flex justify-between items-center cursor-pointer">
                         <h2 class="text-xl font-semibold text-blue-800 flex items-center">
                             <i class="fas fa-credit-card mr-2"></i>
-                            <span>IV. Płatność</span>
+                            <span>V. Płatność</span>
                         </h2>
                         <i class="fas fa-chevron-down text-blue-800 transition-transform duration-300"></i>
                     </div>
@@ -299,12 +378,12 @@
                     </div>
                 </div>
 
-                <!-- Section V: Declarations -->
+                <!-- Section VI: Declarations -->
                 <div class="form-section mb-8 border-b pb-6">
                     <div class="section-header flex justify-between items-center cursor-pointer">
                         <h2 class="text-xl font-semibold text-blue-800 flex items-center">
                             <i class="fas fa-file-signature mr-2"></i>
-                            <span>V. Oświadczenia</span>
+                            <span>VI. Oświadczenia</span>
                         </h2>
                         <i class="fas fa-chevron-down text-blue-800 transition-transform duration-300"></i>
                     </div>
@@ -408,6 +487,41 @@
 
         <script>
         document.addEventListener('DOMContentLoaded', function () {
+
+                        // Show/hide claims amount based on radio button selection
+            const claimsPaidRadios = document.querySelectorAll('input[name="claims-paid"]');
+            const claimsAmountDiv = document.getElementById('claims-amount-div');
+            const claimsAmountInput = document.getElementById('claims-amount');
+
+            if (claimsPaidRadios.length && claimsAmountDiv && claimsAmountInput) {
+                claimsPaidRadios.forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        if (this.value === 'yes' && this.checked) {
+                            claimsAmountDiv.classList.remove('hidden');
+                            claimsAmountInput.setAttribute('required', 'required'); // Make it required if "yes"
+                            // Add required-field styling to label if not already there via class
+                            const claimsAmountLabel = claimsAmountDiv.querySelector('label');
+                            if (claimsAmountLabel && !claimsAmountLabel.classList.contains('required-field')) {
+                                // You might need to add a span with the asterisk or adjust styling
+                            }
+
+                        } else {
+                            claimsAmountDiv.classList.add('hidden');
+                            claimsAmountInput.removeAttribute('required'); // No longer required
+                            claimsAmountInput.value = ''; // Clear the value
+                            // Remove required styling
+                            const claimsAmountLabel = claimsAmountDiv.querySelector('label');
+                             if (claimsAmountLabel) {
+                                // Remove styling if you added it
+                            }
+                            // Also remove any red border from the input itself if validation ran
+                            claimsAmountInput.classList.remove('border-red-500');
+
+                        }
+                    });
+                });
+            }
+
             // Collapsible sections
             const sectionHeaders = document.querySelectorAll('.section-header');
             sectionHeaders.forEach(header => {
