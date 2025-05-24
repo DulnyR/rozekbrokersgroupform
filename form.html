@@ -71,7 +71,7 @@
 
             <!-- Form Sections -->
             <form id="insurance-form"
-                action="https://script.google.com/macros/s/AKfycbyYjrcRFYreRAdgFeSSHpYpN2XrC_hlx30g8q8qe0nOZUaQL2zHTx15nxYvZn9e-lzJ/exec"
+                action="https://script.google.com/macros/s/AKfycbydK-fw-mhcJSLAaHkScifi30wr7gr7oO07P3BbA14mAe6y3y9fF7WAO6uvXgidCjQf/exec"
                 method="POST" class="p-6">
                 <!-- Success Message (hidden by default) -->
                 <div id="success-message"
@@ -564,7 +564,7 @@
                 </div>
 
                 <!-- Signature Section -->
-                <div class="form-section mb-8">
+                 <div class="form-section mb-8">
                     <div class="section-header flex justify-between items-center cursor-pointer">
                         <h2 class="text-xl font-semibold text-blue-800 flex items-center">
                             <i class="fas fa-pen-fancy mr-2"></i>
@@ -585,6 +585,7 @@
                                     class="block text-sm font-medium text-gray-700 required-field">Data</label>
                                 <input type="date" id="sign-date" name="sign-date"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border bg-gray-100 cursor-not-allowed" readonly>
+                                    <!-- ^^^ ADDED readonly, bg-gray-100, cursor-not-allowed ^^^ -->
                             </div>
                             <div>
                                 <label for="signature"
@@ -614,7 +615,7 @@
         </footer>
     </div>
 
-        <script>
+            <script>
         document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('insurance-form');
             if (!form) {
@@ -684,25 +685,35 @@
             }
             function styleError(element, addError) {
                 if (!element) return;
+                // Determine the actual element or parent group to style
+                let targetElementToStyle = element;
                 if (element.type === 'radio' || element.type === 'checkbox') {
-                    const parentGroup = element.closest('div.mt-2.flex.space-x-4, div.mt-1.flex.space-x-4, div.flex.items-start');
-                    if (parentGroup) {
-                        parentGroup.classList.toggle('border-red-500', addError);
-                        parentGroup.classList.toggle('border-2', addError);
-                        parentGroup.classList.toggle('rounded-md', addError);
-                        parentGroup.classList.toggle('p-1', addError);
+                    targetElementToStyle = element.closest('div.mt-2.flex.space-x-4, div.mt-1.flex.space-x-4, div.flex.items-start');
+                }
+                
+                if (targetElementToStyle) {
+                    targetElementToStyle.classList.toggle('border-red-500', addError);
+                    if (targetElementToStyle !== element) { // It's a parent group for radio/checkbox
+                        targetElementToStyle.classList.toggle('border-2', addError);
+                        targetElementToStyle.classList.toggle('rounded-md', addError);
+                        targetElementToStyle.classList.toggle('p-1', addError);
                     }
-                } else {
-                    element.classList.toggle('border-red-500', addError);
+                } else if (element.classList) { // Fallback to styling the element itself if no specific parent found
+                     element.classList.toggle('border-red-500', addError);
                 }
             }
 
             // --- Initialization & Event Listeners ---
-            if (signDateInput) signDateInput.value = getLocalDateString(new Date()); // readonly is in HTML
-            if (startDateInput) startDateInput.setAttribute('min', getLocalDateString(new Date()));
+            if (signDateInput) {
+                 signDateInput.value = getLocalDateString(new Date());
+                 // readonly attribute is set in HTML, styling classes also in HTML
+            }
+            if (startDateInput) {
+                startDateInput.setAttribute('min', getLocalDateString(new Date()));
+            }
 
             if (startDateInput && endDateInput) {
-                startDateInput.addEventListener('change', function() { /* ... (existing start/end date logic - ensure it uses getLocalDateString for consistency) ... */ 
+                startDateInput.addEventListener('change', function() { 
                     if (this.value) {
                         const selectedStartDate = new Date(this.value);
                         const minDate = new Date(startDateInput.min); minDate.setHours(0,0,0,0);
@@ -726,8 +737,7 @@
                 }));
             }
 
-            // OC Zawodowe Premium
-            function calculateAndDisplayOcZawodowePremium() { /* ... (existing logic, use formatCurrency) ... */
+            function calculateAndDisplayOcZawodowePremium() {
                 if (!sumGuaranteedOcZawodoweSelect || !ocZawodowePremiumDisplay || !associationMemberOcZawodoweRadios.length || !calculatedOcZawodowePremiumInput) return;
                 const selectedSum = sumGuaranteedOcZawodoweSelect.value;
                 const memberRadio = Array.from(associationMemberOcZawodoweRadios).find(r => r.checked);
@@ -741,21 +751,22 @@
             if (sumGuaranteedOcZawodoweSelect) sumGuaranteedOcZawodoweSelect.addEventListener('change', calculateAndDisplayOcZawodowePremium);
             associationMemberOcZawodoweRadios.forEach(radio => radio.addEventListener('change', calculateAndDisplayOcZawodowePremium));
 
-            // NNW Opt-in & Premium
-            function toggleNnwOptions() { /* ... (existing logic, call calculateAndDisplayNnwPremium) ... */
+            function toggleNnwOptions() {
                 if (!nnwOptInCheckbox || !nnwOptionsDiv || !nnwSumGuaranteedSelect || !nnwAssociationMemberRadios.length) return;
                 const isOptedIn = nnwOptInCheckbox.checked;
                 nnwOptionsDiv.classList.toggle('hidden', !isOptedIn);
-                const nnwSumLabel = document.querySelector('label[for="nnw-sum-guaranteed"]');
-                const nnwMemberLabel = nnwSumGuaranteedSelect.parentElement.nextElementSibling.querySelector('label');
+                const nnwSumLabel = form.querySelector('label[for="nnw-sum-guaranteed"]');
+                const nnwMemberLabelContainer = nnwSumGuaranteedSelect.parentElement.nextElementSibling; // This should be the div containing the member label
+                const nnwMemberLabel = nnwMemberLabelContainer ? nnwMemberLabelContainer.querySelector('label') : null;
+
 
                 if (isOptedIn) {
                     nnwSumGuaranteedSelect.setAttribute('required', 'required');
                     if (nnwSumLabel) nnwSumLabel.classList.add('required-field');
-                    if (nnwMemberLabel) nnwMemberLabel.classList.add('required-field'); // Add to the group label
+                    if (nnwMemberLabel) nnwMemberLabel.classList.add('required-field');
                 } else {
                     nnwSumGuaranteedSelect.removeAttribute('required'); nnwSumGuaranteedSelect.value = ''; styleError(nnwSumGuaranteedSelect, false);
-                    nnwAssociationMemberRadios.forEach(r => { r.checked = false; }); styleError(nnwAssociationMemberRadios[0], false); // Clear group style
+                    nnwAssociationMemberRadios.forEach(r => { r.checked = false; }); styleError(nnwAssociationMemberRadios[0], false);
                     if (nnwPremiumDisplay) nnwPremiumDisplay.textContent = "--- PLN";
                     if (calculatedNnwPremiumInput) calculatedNnwPremiumInput.value = "";
                     if (nnwSumLabel) nnwSumLabel.classList.remove('required-field');
@@ -763,7 +774,7 @@
                 }
                 calculateAndDisplayNnwPremium();
             }
-            function calculateAndDisplayNnwPremium() { /* ... (existing logic, use formatCurrency) ... */
+            function calculateAndDisplayNnwPremium() {
                 if (!nnwOptInCheckbox || !nnwOptInCheckbox.checked || !nnwSumGuaranteedSelect || !nnwPremiumDisplay || !nnwAssociationMemberRadios.length || !calculatedNnwPremiumInput) {
                     if (nnwPremiumDisplay) nnwPremiumDisplay.textContent = "--- PLN"; if (calculatedNnwPremiumInput) calculatedNnwPremiumInput.value = ""; return;
                 }
@@ -780,12 +791,13 @@
             if (nnwSumGuaranteedSelect) nnwSumGuaranteedSelect.addEventListener('change', calculateAndDisplayNnwPremium);
             nnwAssociationMemberRadios.forEach(radio => radio.addEventListener('change', calculateAndDisplayNnwPremium));
 
-            // OC Świadczeniodawcy Opt-in & Premium
-            function toggleOcSwiadOptions() { /* ... (existing logic, call calculateAndDisplayOcSwiadPremium) ... */
+            function toggleOcSwiadOptions() {
                 if (!ocSwiadOptInCheckbox || !ocSwiadOptionsDiv || !ocSwiadAssociationMemberRadios.length) return;
                 const isOptedIn = ocSwiadOptInCheckbox.checked;
                 ocSwiadOptionsDiv.classList.toggle('hidden', !isOptedIn);
-                const ocSwiadMemberLabel = ocSwiadAssociationMemberRadios[0].closest('div.mt-1.flex.space-x-4').previousElementSibling;
+                const ocSwiadMemberLabelContainer = ocSwiadAssociationMemberRadios[0].closest('div.mt-1.flex.space-x-4');
+                const ocSwiadMemberLabel = ocSwiadMemberLabelContainer ? ocSwiadMemberLabelContainer.previousElementSibling : null;
+
 
                 if (isOptedIn) {
                     if(ocSwiadMemberLabel) ocSwiadMemberLabel.classList.add('required-field');
@@ -797,7 +809,7 @@
                 }
                 calculateAndDisplayOcSwiadPremium();
             }
-            function calculateAndDisplayOcSwiadPremium() { /* ... (existing logic, use formatCurrency) ... */
+            function calculateAndDisplayOcSwiadPremium() {
                 if (!ocSwiadOptInCheckbox || !ocSwiadOptInCheckbox.checked || !ocSwiadPremiumDisplay || !ocSwiadAssociationMemberRadios.length || !calculatedOcSwiadPremiumInput) {
                     if (ocSwiadPremiumDisplay) ocSwiadPremiumDisplay.textContent = "--- PLN"; if (calculatedOcSwiadPremiumInput) calculatedOcSwiadPremiumInput.value = ""; return;
                 }
@@ -812,9 +824,8 @@
             if (ocSwiadOptInCheckbox) ocSwiadOptInCheckbox.addEventListener('change', toggleOcSwiadOptions);
             ocSwiadAssociationMemberRadios.forEach(radio => radio.addEventListener('change', calculateAndDisplayOcSwiadPremium));
 
-            // Collapsible sections
             const sectionHeaders = document.querySelectorAll('.section-header');
-            sectionHeaders.forEach(header => { /* ... (your existing logic) ... */
+            sectionHeaders.forEach(header => {
                 header.addEventListener('click', function () {
                     const section = this.parentElement;
                     const icon = this.querySelector('i.fa-chevron-down');
@@ -822,147 +833,193 @@
                 });
             });
 
-            // --- Blur Validation ---
-            // This is a more generic blur validation. Modify if very specific styling per field type is needed.
             form.querySelectorAll('input:not([type="hidden"]), select, textarea').forEach(input => {
                 const eventType = (input.type === 'select-one' || input.type === 'date' || input.type === 'radio' || input.type === 'checkbox') ? 'change' : 'blur';
                 input.addEventListener(eventType, function() {
                     let isFieldValid = true;
-                    let elementToStyle = this;
+                    let elementToValidate = this;
                     const associatedLabel = form.querySelector(`label[for="${this.id}"].required-field`) || 
-                                          this.closest('div.grid > div, div.space-y-4 > div, div.flex.items-start')?.querySelector('label.required-field');
+                                          this.closest('div:not(.section-content):not(.form-section)')?.querySelector('label.required-field');
+                    
+                    // For radio groups, validate the group, not individual radio on blur
+                    if (this.type === 'radio') {
+                        elementToValidate = form.elements[this.name]; // Get the NodeList for the radio group
+                    }
 
-                    if (this.hasAttribute('required') || (associatedLabel && associatedLabel.classList.contains('required-field'))) {
-                        if (this.type === 'radio') {
-                            elementToStyle = this.closest('div.mt-2.flex.space-x-4, div.mt-1.flex.space-x-4') || this.parentElement.parentElement;
+                    if (elementToValidate.required || (associatedLabel && associatedLabel.classList.contains('required-field'))) {
+                         if (elementToValidate.type === 'radio' || (elementToValidate.length && elementToValidate[0].type === 'radio')) { // Check if it's a NodeList of radios
                             isFieldValid = form.querySelector(`input[name="${this.name}"]:checked`);
-                        } else if (this.type === 'checkbox') {
-                            elementToStyle = this.closest('div.flex.items-start');
-                            isFieldValid = this.checked;
+                        } else if (elementToValidate.type === 'checkbox') {
+                            isFieldValid = elementToValidate.checked;
                         } else {
-                            isFieldValid = this.value.trim() !== '';
+                            isFieldValid = elementToValidate.value.trim() !== '';
                         }
-                        styleError(elementToStyle, !isFieldValid);
+                        styleError(this, !isFieldValid); // Style based on the specific input that triggered blur/change
                     }
                 });
             });
 
-
-            // --- Form Submission Handler ---
             form.addEventListener('submit', function (e) {
-                console.log("Form submit event triggered!");
+                console.log("SUBMIT HANDLER: Entered.");
                 e.preventDefault();
-                console.log("Default form submission prevented.");
+                console.log("SUBMIT HANDLER: e.preventDefault() called.");
 
                 let isValid = true;
                 if(errorMessageDiv) errorMessageDiv.classList.add('hidden');
                 if(successMessageDiv) successMessageDiv.classList.add('hidden');
 
-                // Clear all previous error styles
                 form.querySelectorAll('.border-red-500').forEach(el => el.classList.remove('border-red-500'));
                 form.querySelectorAll('.border-2.rounded-md.p-1').forEach(el => el.classList.remove('border-2', 'rounded-md', 'p-1'));
 
-
                 allRequiredFieldLabels.forEach(label => {
-                    const fieldDiv = label.closest('div');
-                    // Find the input associated with this required label
-                    let inputElement = form.elements[label.getAttribute('for')]; 
-                    if (!inputElement && fieldDiv) { // Fallback for radio/checkbox groups where label isn't for a single input
-                         inputElement = fieldDiv.querySelector('input[type="radio"], input[type="checkbox"], select, textarea') || fieldDiv.querySelector('input:not([type="hidden"])');
+                    const forAttr = label.getAttribute('for');
+                    let inputElement = forAttr ? form.elements[forAttr] : null;
+                    
+                    if (!inputElement) { // Fallback for labels not directly using 'for' or for radio groups
+                        const parentDiv = label.closest('div');
+                        if (parentDiv) {
+                            inputElement = parentDiv.querySelector('input[type="radio"], input[type="checkbox"], select, textarea') || parentDiv.querySelector('input:not([type="hidden"])');
+                        }
                     }
+                    // If it's a radio group, get the first radio to check the group by name
                     if (inputElement && inputElement.name && form.elements[inputElement.name] && form.elements[inputElement.name].length && !form.elements[inputElement.name].nodeType) {
-                        inputElement = form.elements[inputElement.name][0]; // First element of a radio group
+                        inputElement = form.elements[inputElement.name][0]; 
                     }
-
 
                     if (inputElement) {
                         let fieldHasError = false;
-                        // Skip validation for inputs within hidden optional sections
-                        if ((inputElement.closest('#nnw-options-div') && nnwOptInCheckbox && !nnwOptInCheckbox.checked) ||
-                            (inputElement.closest('#oc-swiad-options-div') && ocSwiadOptInCheckbox && !ocSwiadOptInCheckbox.checked)) {
-                            return; // Skip this field
-                        }
-                         // Skip claimsAmount if not required
-                        if (inputElement.id === 'claims-amount' && !inputElement.hasAttribute('required')) {
-                            return;
-                        }
-
+                        const optionsDiv = inputElement.closest('#nnw-options-div, #oc-swiad-options-div');
+                        if (optionsDiv && optionsDiv.classList.contains('hidden')) return; // Skip if in hidden optional section
+                        if (inputElement.id === 'claims-amount' && !inputElement.hasAttribute('required')) return;
 
                         if (inputElement.type === 'radio') {
-                            if (!form.querySelector(`input[name="${inputElement.name}"]:checked`)) {
-                                fieldHasError = true;
-                            }
+                            if (!form.querySelector(`input[name="${inputElement.name}"]:checked`)) fieldHasError = true;
                         } else if (inputElement.type === 'checkbox') {
-                            if (!inputElement.checked) {
-                                fieldHasError = true;
-                            }
+                            if (!inputElement.checked) fieldHasError = true;
                         } else if (inputElement.value.trim() === '') {
                             fieldHasError = true;
                         }
-
-                        if (fieldHasError) {
-                            isValid = false;
-                            styleError(inputElement, true);
-                        }
+                        if (fieldHasError) { isValid = false; styleError(inputElement, true); }
                     }
                 });
 
+                console.log("SUBMIT HANDLER: Validation complete. isValid:", isValid);
 
                 if (isValid) {
-                    if(submitBtn) { /* ... disable button ... */ }
+                    console.log("SUBMIT HANDLER: Form is VALID. Preparing to send.");
+                    if(submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Wysyłanie...';
+                        console.log("SUBMIT HANDLER: Submit button UI updated to loading.");
+                    }
+
                     const formDataObj = new FormData(form);
-                    if (nnwOptInCheckbox && !nnwOptInCheckbox.checked) { /* delete NNW fields */ }
-                    if (ocSwiadOptInCheckbox && !ocSwiadOptInCheckbox.checked) { /* delete OC Swiad fields */ }
-
+                    if (nnwOptInCheckbox && !nnwOptInCheckbox.checked) {
+                        formDataObj.delete('nnw-sum-guaranteed'); formDataObj.delete('nnw-association-member'); formDataObj.delete('calculated-nnw-premium');
+                    }
+                    if (ocSwiadOptInCheckbox && !ocSwiadOptInCheckbox.checked) {
+                        formDataObj.delete('oc-swiad-association-member'); formDataObj.delete('calculated-oc-swiad-premium');
+                    }
+                    
+                    console.log("SUBMIT HANDLER: FormData prepared. Initiating fetch...");
                     fetch(form.action, { method: 'POST', body: formDataObj })
-                    .then(response => { /* ... */ return response.json();})
-                    .then(data => { 
-                        if (data.result === "success") {
-                            /* ... success message, form.reset() ... */
-                            // Manual reset/cleanup for dynamic/dependent fields
-                            if(endDateInput) endDateInput.value = '';
-                            if(ocZawodowePremiumDisplay) ocZawodowePremiumDisplay.textContent = '--- PLN';
-                            if(calculatedOcZawodowePremiumInput) calculatedOcZawodowePremiumInput.value = '';
-                            
-                            if(nnwOptInCheckbox) nnwOptInCheckbox.checked = false;
-                            if(nnwOptionsDiv) nnwOptionsDiv.classList.add('hidden');
-                            if(nnwSumGuaranteedSelect) { nnwSumGuaranteedSelect.value = ''; nnwSumGuaranteedSelect.removeAttribute('required'); }
-                            if(nnwPremiumDisplay) nnwPremiumDisplay.textContent = '--- PLN';
-                            if(calculatedNnwPremiumInput) calculatedNnwPremiumInput.value = '';
-                            nnwAssociationMemberRadios.forEach(r => r.checked = false);
-                            const nnwSumLabel = document.querySelector('label[for="nnw-sum-guaranteed"]');
-                            if(nnwSumLabel) nnwSumLabel.classList.remove('required-field');
-                            const nnwMemberLabel = nnwSumGuaranteedSelect?.parentElement.nextElementSibling.querySelector('label');
-                            if(nnwMemberLabel) nnwMemberLabel.classList.remove('required-field');
-
-
-                            if(ocSwiadOptInCheckbox) ocSwiadOptInCheckbox.checked = false;
-                            if(ocSwiadOptionsDiv) ocSwiadOptionsDiv.classList.add('hidden');
-                            if(ocSwiadPremiumDisplay) ocSwiadPremiumDisplay.textContent = '--- PLN';
-                            if(calculatedOcSwiadPremiumInput) calculatedOcSwiadPremiumInput.value = '';
-                            ocSwiadAssociationMemberRadios.forEach(r => r.checked = false);
-                            const ocSwiadMemberLabel = ocSwiadAssociationMemberRadios[0]?.closest('div.mt-1.flex.space-x-4')?.previousElementSibling;
-                            if(ocSwiadMemberLabel) ocSwiadMemberLabel.classList.remove('required-field');
-                            
-                            if(claimsAmountDiv) claimsAmountDiv.classList.add('hidden');
-                            if(claimsAmountInput) { claimsAmountInput.value = ''; claimsAmountInput.removeAttribute('required');}
-
-                            form.querySelectorAll('.border-red-500').forEach(el => el.classList.remove('border-red-500'));
-                            form.querySelectorAll('.border-2.rounded-md.p-1').forEach(el => el.classList.remove('border-2','rounded-md','p-1'));
-
-                            if(progressBar) progressBar.style.width = '0%';
-                            if (signDateInput) signDateInput.value = getLocalDateString(new Date());
-                            if (startDateInput) startDateInput.setAttribute('min', getLocalDateString(new Date()));
-                        } else { throw new Error(data.message || 'Błąd serwera.'); }
-                    })
-                    .catch(error => { /* ... error handling ... */ })
-                    .finally(() => { if(submitBtn) { /* ... enable button ... */ } });
+                        .then(response => {
+                            console.log("FETCH .then(response): Received response. Status:", response.status, "OK:", response.ok);
+                            if (!response.ok) {
+                                console.error("FETCH .then(response): Response NOT OK. Attempting to get error text.");
+                                return response.text().then(text => {
+                                    console.error("FETCH .then(response): Server error text:", text);
+                                    throw new Error("Błąd serwera (" + response.status + "): " + text.substring(0,150));
+                                });
+                            }
+                            console.log("FETCH .then(response): Response OK. Attempting response.json().");
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log("FETCH .then(data): Successfully parsed JSON. Data:", data);
+                            if (data.result === "success") {
+                                console.log("FETCH .then(data): data.result is 'success'. Processing success UI.");
+                                if(successMessageDiv) {
+                                    successMessageDiv.classList.remove('hidden');
+                                    successMessageDiv.querySelector('p.mt-2').textContent = data.message || 'Twój wniosek został pomyślnie wysłany.';
+                                    successMessageDiv.scrollIntoView({ behavior: 'smooth' });
+                                    console.log("FETCH .then(data): Success message displayed.");
+                                }
+                                form.reset();
+                                console.log("FETCH .then(data): form.reset() called.");
+                                // Manual reset logic
+                                if(endDateInput) endDateInput.value = '';
+                                if(ocZawodowePremiumDisplay) ocZawodowePremiumDisplay.textContent = '--- PLN';
+                                if(calculatedOcZawodowePremiumInput) calculatedOcZawodowePremiumInput.value = '';
+                                if(nnwOptInCheckbox) nnwOptInCheckbox.checked = false;
+                                if(nnwOptionsDiv) nnwOptionsDiv.classList.add('hidden');
+                                if(nnwSumGuaranteedSelect) { nnwSumGuaranteedSelect.value = ''; nnwSumGuaranteedSelect.removeAttribute('required'); }
+                                if(nnwPremiumDisplay) nnwPremiumDisplay.textContent = '--- PLN';
+                                if(calculatedNnwPremiumInput) calculatedNnwPremiumInput.value = '';
+                                nnwAssociationMemberRadios.forEach(r => r.checked = false);
+                                const nnwSumLabel = document.querySelector('label[for="nnw-sum-guaranteed"]'); if(nnwSumLabel) nnwSumLabel.classList.remove('required-field');
+                                const nnwMemberLabel = nnwSumGuaranteedSelect?.parentElement?.nextElementSibling?.querySelector('label'); if(nnwMemberLabel) nnwMemberLabel.classList.remove('required-field');
+                                if(ocSwiadOptInCheckbox) ocSwiadOptInCheckbox.checked = false;
+                                if(ocSwiadOptionsDiv) ocSwiadOptionsDiv.classList.add('hidden');
+                                if(ocSwiadPremiumDisplay) ocSwiadPremiumDisplay.textContent = '--- PLN';
+                                if(calculatedOcSwiadPremiumInput) calculatedOcSwiadPremiumInput.value = '';
+                                ocSwiadAssociationMemberRadios.forEach(r => r.checked = false);
+                                const ocSwiadMemberLabel = ocSwiadAssociationMemberRadios[0]?.closest('div.mt-1.flex.space-x-4')?.previousElementSibling; if(ocSwiadMemberLabel) ocSwiadMemberLabel.classList.remove('required-field');
+                                if(claimsAmountDiv) claimsAmountDiv.classList.add('hidden');
+                                if(claimsAmountInput) { claimsAmountInput.value = ''; claimsAmountInput.removeAttribute('required');}
+                                form.querySelectorAll('.border-red-500').forEach(el => el.classList.remove('border-red-500'));
+                                form.querySelectorAll('.border-2.rounded-md.p-1').forEach(el => el.classList.remove('border-2','rounded-md','p-1'));
+                                if(progressBar) progressBar.style.width = '0%';
+                                if (signDateInput) signDateInput.value = getLocalDateString(new Date());
+                                if (startDateInput) startDateInput.setAttribute('min', getLocalDateString(new Date()));
+                                console.log("FETCH .then(data): Manual reset logic complete.");
+                            } else {
+                                console.error("FETCH .then(data): data.result was NOT 'success'. Data:", data);
+                                throw new Error(data.message || 'Odpowiedź serwera nie wskazuje na sukces (data.result error).');
+                            }
+                        })
+                        .catch(error => {
+                            console.error("FETCH .catch(): An error occurred. Error message:", error.message);
+                            console.error("FETCH .catch(): Full error object:", error);
+                            if(errorMessageDiv) {
+                                errorMessageDiv.querySelector('p.mt-2').textContent = error.message || 'Wystąpił problem podczas przesyłania formularza.';
+                                errorMessageDiv.classList.remove('hidden');
+                                errorMessageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                console.log("FETCH .catch(): Error message displayed to user.");
+                            }
+                        })
+                        .finally(() => {
+                            console.log("FETCH .finally(): Reached finally block.");
+                            if(submitBtn) {
+                                submitBtn.disabled = false;
+                                submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Wyślij wniosek';
+                                console.log("FETCH .finally(): Submit button re-enabled.");
+                            }
+                        });
                 } else {
-                    if(errorMessageDiv) { /* ... show error message ... scroll to first error ... */ }
+                    console.log("SUBMIT HANDLER: Form is INVALID. Displaying generic error message.");
+                    if(errorMessageDiv) {
+                        errorMessageDiv.querySelector('p.mt-2').textContent = 'Proszę wypełnić wszystkie wymagane pola oznaczone gwiazdką (*).';
+                        errorMessageDiv.classList.remove('hidden');
+                        const firstErrorEl = form.querySelector('.border-red-500, .border-red-500.border-2');
+                        if (firstErrorEl) {
+                            const labelForError = form.querySelector(`label[for="${firstErrorEl.id}"].required-field`) || 
+                                                firstErrorEl.closest('div:not(.section-content):not(.form-section)')?.querySelector('label.required-field') ||
+                                                firstErrorEl.closest('div.mt-2.flex.space-x-4, div.flex.items-start')?.previousElementSibling;
+                            if(labelForError && typeof labelForError.scrollIntoView === 'function') {
+                                labelForError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            } else if (typeof firstErrorEl.scrollIntoView === 'function') {
+                                firstErrorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            } else {
+                                 errorMessageDiv.scrollIntoView({ behavior: 'smooth', block: 'center'});
+                            }
+                        } else {
+                             errorMessageDiv.scrollIntoView({ behavior: 'smooth', block: 'center'});
+                        }
+                    }
                 }
             });
         });
     </script>
 </body>
-
 </html>
